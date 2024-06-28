@@ -3,16 +3,18 @@ import 'dart:async';
 import 'package:poll_ios_stats/poll_ios_stats.dart';
 
 void main() {
-  runApp(MyApp());
+  runApp(const MyApp());
 }
 
 class MyApp extends StatefulWidget {
+  const MyApp({super.key});
+
   @override
-  _MyAppState createState() => _MyAppState();
+  State<MyApp> createState() => _MyAppState();
 }
 
 class _MyAppState extends State<MyApp> {
-  PollIosStats _poller = PollIosStats();
+  final PollIosStats _poller = PollIosStats();
   double _dirtyMemoryUsage = -1;
   double _ownedSharedMemoryUsage = -1;
   double _timeSinceStartup = -1;
@@ -27,13 +29,13 @@ class _MyAppState extends State<MyApp> {
     MemoryUsage memoryUsage = await _poller.pollMemoryUsage();
     if (!mounted) return;
     setState(() {
-      _dirtyMemoryUsage = memoryUsage.dirtyMemoryUsage;
-      _ownedSharedMemoryUsage = memoryUsage.ownedSharedMemoryUsage;
+      _dirtyMemoryUsage = memoryUsage.dirtyMemoryUsage!;
+      _ownedSharedMemoryUsage = memoryUsage.ownedSharedMemoryUsage!;
     });
     StartupTime startupTime = await _poller.pollStartupTime();
     if (!mounted) return;
     setState(() {
-      Duration diff = DateTime.now().difference(DateTime.fromMicrosecondsSinceEpoch(startupTime.startupTime));
+      Duration diff = DateTime.now().difference(DateTime.fromMicrosecondsSinceEpoch(startupTime.startupTime!));
       _timeSinceStartup = (diff.inMicroseconds / 1000000.0);
     });
   }

@@ -1,20 +1,20 @@
 name: poll_ios_stats
 description: A plugin for polling system information on iOS.
-version: 0.0.1
+version: 0.0.2
 homepage: https://github.com/gaaclarke/poll_ios_stats
 
 environment:
-  sdk: ">=2.7.0 <3.0.0"
-  flutter: ">=1.10.0"
+  sdk: '>=2.18.6 <3.0.0'
 
 dependencies:
   flutter:
     sdk: flutter
 
 dev_dependencies:
+  flutter_lints: ^2.0.0
   flutter_test:
     sdk: flutter
-  pigeon: ^0.1.2+1
+  pigeon: ^20.0.0
 
 flutter:
   plugin:

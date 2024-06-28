@@ -1,23 +1,24 @@
 import 'package:pigeon/pigeon.dart';
 
+@ConfigurePigeon(PigeonOptions(
+  dartOut: 'lib/messages.g.dart',
+  dartOptions: DartOptions(),
+  objcHeaderOut: 'ios/Classes/messages.g.h',
+  objcSourceOut: 'ios/Classes/messages.g.m',
+  objcOptions: ObjcOptions(prefix: 'AC'),
+))
+
 class MemoryUsage {
-  double dirtyMemoryUsage;
-  double ownedSharedMemoryUsage;
+  double? dirtyMemoryUsage;
+  double? ownedSharedMemoryUsage;
 }
 
 class StartupTime {
-  int startupTime;
+  int? startupTime;
 }
 
 @HostApi()
 abstract class PollIosStats {
   MemoryUsage pollMemoryUsage();
   StartupTime pollStartupTime();
-}
-
-void configurePigeon(PigeonOptions opts) {
-  opts.objcOptions.prefix = "AC";
-  opts.dartOut = "lib/messages.dart";
-  opts.objcHeaderOut = "ios/Classes/messages.h";
-  opts.objcSourceOut = "ios/Classes/messages.m";
 }

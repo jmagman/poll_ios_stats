@@ -1,1 +1,1 @@
-export 'messages.dart';
+export 'messages.g.dart';

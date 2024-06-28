@@ -1,6 +1,6 @@
 #import "PollIosStatsPlugin.h"
 
-#import "messages.h"
+#import "messages.g.h"
 #import <mach/mach.h>
 #import <sys/sysctl.h>
 #import <sys/types.h>
@@ -10,8 +10,7 @@
 
 @implementation MyPollIosStats
 
-- (nullable ACMemoryUsage *)pollMemoryUsage:
-    (FlutterError *_Nullable *_Nonnull)error {
+- (nullable ACMemoryUsage *)pollMemoryUsageWithError:(FlutterError * _Nullable __autoreleasing *)error {
   kern_return_t kernel_return_code;
   task_vm_info_data_t task_memory_info;
   mach_msg_type_number_t task_memory_info_count = TASK_VM_INFO_COUNT;
@@ -42,8 +41,7 @@
   return result;
 }
 
-- (nullable ACStartupTime *)pollStartupTime:
-    (FlutterError *_Nullable *_Nonnull)error {
+- (nullable ACStartupTime *)pollStartupTimeWithError:(FlutterError * _Nullable __autoreleasing *)error {
   pid_t pid = [[NSProcessInfo processInfo] processIdentifier];
   int mib[4] = {CTL_KERN, KERN_PROC, KERN_PROC_PID, pid};
   struct kinfo_proc proc;
@@ -71,6 +69,6 @@
 
 @implementation PollIosStatsPlugin
 + (void)registerWithRegistrar:(NSObject<FlutterPluginRegistrar> *)registrar {
-  ACPollIosStatsSetup(registrar.messenger, [[MyPollIosStats alloc] init]);
+  SetUpACPollIosStats(registrar.messenger, [[MyPollIosStats alloc] init]);
 }
 @end

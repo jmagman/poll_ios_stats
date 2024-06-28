@@ -3,21 +3,18 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:poll_ios_stats/poll_ios_stats.dart';
 
 void main() {
-  const MethodChannel channel = MethodChannel('poll_ios_stats');
+  const MethodChannel channel = MethodChannel('dev.flutter.pigeon.poll_ios_stats.PollIosStats.pollStartupTime');
 
   TestWidgetsFlutterBinding.ensureInitialized();
 
   setUp(() {
-    channel.setMockMethodCallHandler((MethodCall methodCall) async {
-      return '42';
+    TestDefaultBinaryMessengerBinding.instance.defaultBinaryMessenger.setMockMethodCallHandler(channel, (MethodCall methodCall) async {
+      return StartupTime(startupTime: 42);
     });
-  });
-
-  tearDown(() {
-    channel.setMockMethodCallHandler(null);
+    TestWidgetsFlutterBinding.ensureInitialized();
   });
 
   test('getPlatformVersion', () async {
-    expect(await PollIosStats.platformVersion, '42');
+    expect((await PollIosStats().pollStartupTime()).startupTime, '42');
   });
 }

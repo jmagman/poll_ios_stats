@@ -2,7 +2,7 @@
 
 A plugin for polling iOS system information.
 
-**Warning:**: Compatability with Apple's App Store policies isn't guaranteed.
+**Warning:**: Compatibility with Apple's App Store policies isn't guaranteed.
 
 ## Supported stats
 
